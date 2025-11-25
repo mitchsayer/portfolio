@@ -5,6 +5,8 @@ body
     font-family: 'Acme', sans-serif;
     color: #616971;
     scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
 }
 
 /*======== TOP BAR HEADER ========*/
@@ -306,6 +308,8 @@ footer .svg-inline--fa:hover
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 /*======== MEDIA QUERIES ========*/
