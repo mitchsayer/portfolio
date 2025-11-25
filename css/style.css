@@ -15,8 +15,6 @@ body
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /*======== TOP BAR HEADER ========*/
@@ -268,13 +266,9 @@ footer
 {
     background-color: #383838;
     padding: 1rem 0 3rem;
-    width: 100vw;
+    width: 100%;
+    margin: 0;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-top: auto;
 }
 footer img
 {
@@ -313,14 +307,9 @@ footer .svg-inline--fa:hover
 {
     background-color: #222222;
     border-top: .1rem solid #4981b3;
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-bottom: 0;
-    padding-bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /*======== MEDIA QUERIES ========*/

@@ -11,15 +11,71 @@ AOS.init({
 document.addEventListener('DOMContentLoaded', function() {
     const navDots = document.querySelectorAll('.nav-dot');
     
-    // Map section names to their IDs
-    const sections = {
-        'home': 'home',
-        'games': 'games', 
-        'data': 'data',
-        'about': 'about',
-        'contact': 'contact'
-    };
+    if (navDots.length === 0) return; // Exit if no nav dots found
 
+    // Function to update active section
+    function updateActiveSection() {
+        const scrollPos = window.scrollY;
+        const viewportMid = scrollPos + window.innerHeight / 2;
+        
+        let activeSection = null;
+        
+        // Check each nav dot and its corresponding section
+        navDots.forEach(dot => {
+            const sectionId = dot.getAttribute('data-section');
+            const section = document.getElementById(sectionId);
+            
+            if (section) {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + scrollPos;
+                const sectionBottom = rect.bottom + scrollPos;
+                
+                // Check if viewport is currently showing this section
+                if (viewportMid >= sectionTop && viewportMid < sectionBottom) {
+                    activeSection = sectionId;
+                }
+            }
+        });
+        
+        // If no section is in middle of viewport, find the closest one below
+        if (!activeSection) {
+            let closestSection = null;
+            let closestDistance = Infinity;
+            
+            navDots.forEach(dot => {
+                const sectionId = dot.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    const sectionTop = rect.top + scrollPos;
+                    
+                    if (sectionTop <= viewportMid) {
+                        const distance = viewportMid - sectionTop;
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestSection = sectionId;
+                        }
+                    }
+                }
+            });
+            
+            if (closestSection) {
+                activeSection = closestSection;
+            }
+        }
+        
+        // Update all dots
+        navDots.forEach(dot => {
+            const sectionId = dot.getAttribute('data-section');
+            if (sectionId === activeSection) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+    
     // Smooth scroll on nav dot click
     navDots.forEach(dot => {
         dot.addEventListener('click', function(e) {
@@ -32,63 +88,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    // Function to update active dot
-    function updateActiveSection() {
-        let currentSection = 'home'; // Default
-        const scrollPos = window.scrollY + window.innerHeight / 3; // Check 1/3 down viewport
-        
-        // Get all section elements and their positions
-        const sectionElements = [];
-        
-        Object.values(sections).forEach(sectionId => {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                sectionElements.push({
-                    id: sectionId,
-                    element: element,
-                    top: element.getBoundingClientRect().top + window.scrollY,
-                    bottom: element.getBoundingClientRect().top + element.getBoundingClientRect().height + window.scrollY
-                });
-            }
-        });
-        
-        // Sort by top position
-        sectionElements.sort((a, b) => a.top - b.top);
-        
-        // Find current section based on scroll position
-        for (let section of sectionElements) {
-            if (scrollPos >= section.top && scrollPos < section.bottom) {
-                currentSection = section.id;
-                break;
-            }
-        }
-        
-        // If past last section, mark last section as active
-        if (scrollPos >= sectionElements[sectionElements.length - 1].top) {
-            currentSection = sectionElements[sectionElements.length - 1].id;
-        }
-        
-        // Update dots
-        navDots.forEach(dot => {
-            dot.classList.remove('active');
-            if (dot.getAttribute('data-section') === currentSection) {
-                dot.classList.add('active');
-            }
-        });
-    }
     
-    // Call on page load
+    // Initial update
     updateActiveSection();
     
-    // Update on scroll with debouncing
-    let ticking = false;
+    // Update on scroll
+    let scrollTimer;
     window.addEventListener('scroll', function() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateActiveSection);
-            ticking = true;
-            setTimeout(() => { ticking = false; }, 100);
+        if (scrollTimer) {
+            clearTimeout(scrollTimer);
         }
+        scrollTimer = setTimeout(updateActiveSection, 50);
     }, false);
 });
 
