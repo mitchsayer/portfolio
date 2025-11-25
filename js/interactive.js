@@ -10,7 +10,6 @@ AOS.init({
 // Scroll Spy Navigation - Update active dot based on scroll position
 document.addEventListener('DOMContentLoaded', function() {
     const navDots = document.querySelectorAll('.nav-dot');
-    const sections = document.querySelectorAll('[id^=""]');
     
     // Get all section elements
     const sectionElements = {
@@ -34,37 +33,57 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Update active dot on scroll
-    window.addEventListener('scroll', () => {
-        let current = '';
+    // Update active dot on scroll with improved detection
+    function updateActiveDot() {
+        const scrollPos = window.pageYOffset + 300; // Increased offset for better detection
+        let current = 'home'; // Default to home
         
-        // Check sections in order and find the one closest to viewport
+        // Check each section's position
+        const sectionData = [];
+        
         Object.keys(sectionElements).forEach(section => {
             const element = sectionElements[section];
             if (element) {
-                const sectionTop = element.offsetTop;
-                const sectionHeight = element.clientHeight;
-                const scrollPos = window.pageYOffset + 200; // Add offset for better detection
-                
-                // Check if scroll position is within this section
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    current = section;
-                }
+                sectionData.push({
+                    name: section,
+                    top: element.offsetTop,
+                    bottom: element.offsetTop + element.offsetHeight
+                });
             }
         });
         
-        // If no section matched (at very top), default to home
-        if (!current) {
-            current = 'home';
+        // Sort by top position
+        sectionData.sort((a, b) => a.top - b.top);
+        
+        // Find which section the scroll is in
+        for (let i = sectionData.length - 1; i >= 0; i--) {
+            if (scrollPos >= sectionData[i].top) {
+                current = sectionData[i].name;
+                break;
+            }
         }
-
-        // Update active dot
+        
+        // Update all dots
         navDots.forEach(dot => {
-            dot.classList.remove('active');
-            if (dot.getAttribute('data-section') === current) {
+            const section = dot.getAttribute('data-section');
+            if (section === current) {
                 dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
             }
         });
+    }
+
+    // Initial call
+    updateActiveDot();
+    
+    // Update on scroll with throttling for performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        scrollTimeout = window.requestAnimationFrame(updateActiveDot);
     });
 });
 
