@@ -11,13 +11,25 @@
         <!--Style CSS-->
         <link rel="stylesheet" href="css/style.css">
         <!--Google Fonts-->
-        <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">  
+        <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+        <!--AOS (Animate On Scroll)-->
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     </head>
 
     <body>
+        <!-- Sticky Navigation Indicator -->
+        <nav class="scroll-nav">
+            <ul class="nav-dots">
+                <li><a href="#home" data-section="home" class="nav-dot active"></a></li>
+                <li><a href="#games" data-section="games" class="nav-dot"></a></li>
+                <li><a href="#data" data-section="data" class="nav-dot"></a></li>
+                <li><a href="#about" data-section="about" class="nav-dot"></a></li>
+                <li><a href="#contact" data-section="contact" class="nav-dot"></a></li>
+            </ul>
+        </nav>
     
         <!--Top Bar-->
-        <div class="top-bar">
+        <div class="top-bar" id="home">
             <div class="container">
                 <div class="col-12 text-right">
                     <p><a href="mailto: mitchellbsayer@gmail.com" > Contact me here at mitchellbsayer@gmail.com</a></p>
@@ -127,7 +139,7 @@
         <!--End Image Carousel-->
 
         <!--Main Page Heading-->
-        <div class="col-12 text-center mt-5">
+        <div class="col-12 text-center mt-5" id="games" data-aos="fade-up" data-aos-duration="800">
             <h1 class="text-dark pt-4">Game Projects</h1>
             <div class="border-top border-primary w-25 mx-auto my-3"></div>
             <p class="lead">Take a look at some of the things I've done!</p>
@@ -137,32 +149,38 @@
             <div class="container">
                 <div class="row my-5">
 
-                    <div class="col-md-4 my-4">
-                        <img src="img/thumbnails/Guudo.png" alt="" class="w-100">
-                        <h4 class="my-4">Guudo</h4>
-                        <p> Guudo is a 3D, Action-Adventure, Platformer where you play as an extra-terrestrial scout named... GUUDO! </p>
-                        <a href="https://mitch-sayer.itch.io/guudo" class="btn btn-outline-dark btn-md">Read More</a>
+                    <div class="col-md-4 my-4 project-card" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="100">
+                        <div class="card-wrapper">
+                            <img src="img/thumbnails/Guudo.png" alt="Guudo Game" class="w-100">
+                            <h4 class="my-4">Guudo</h4>
+                            <p> Guudo is a 3D, Action-Adventure, Platformer where you play as an extra-terrestrial scout named... GUUDO! </p>
+                            <a href="https://mitch-sayer.itch.io/guudo" class="btn btn-outline-dark btn-md">Read More</a>
+                        </div>
                     </div>
 
-                    <div class="col-md-4 my-4">
-                        <img src="img/thumbnails/error.png" alt="" class="w-100">
-                        <h4 class="my-4">Error.MP3</h4>
-                        <p> Error.mp3 is a 2.5D, endless runner, made with Unreal Engine 4 that challenges you to fight against your own music to survive for 30 seconds!</p>
-                        <a href="https://mitch-sayer.itch.io/error" class="btn btn-outline-dark btn-md">Read More</a>
+                    <div class="col-md-4 my-4 project-card" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="200">
+                        <div class="card-wrapper">
+                            <img src="img/thumbnails/error.png" alt="Error.MP3 Game" class="w-100">
+                            <h4 class="my-4">Error.MP3</h4>
+                            <p> Error.mp3 is a 2.5D, endless runner, made with Unreal Engine 4 that challenges you to fight against your own music to survive for 30 seconds!</p>
+                            <a href="https://mitch-sayer.itch.io/error" class="btn btn-outline-dark btn-md">Read More</a>
+                        </div>
                     </div>
 
-                    <div class="col-md-4 my-4">
-                        <img src="img/thumbnails/teou.png" alt="" class="w-100">
-                        <h4 class="my-4">The Escape of Ultraball</h4>
-                        <p> You're a science experiment gone wrong who just wants a loving family to be played with. The mad scientist is on your tail and has sent his evil creations to stop you! Escape the lab as fast as you can!</p>
-                        <a href="https://mitch-sayer.itch.io/ultraball" class="btn btn-outline-dark btn-md">Read More</a>
+                    <div class="col-md-4 my-4 project-card" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
+                        <div class="card-wrapper">
+                            <img src="img/thumbnails/teou.png" alt="The Escape of Ultraball" class="w-100">
+                            <h4 class="my-4">The Escape of Ultraball</h4>
+                            <p> You're a science experiment gone wrong who just wants a loving family to be played with. The mad scientist is on your tail and has sent his evil creations to stop you! Escape the lab as fast as you can!</p>
+                            <a href="https://mitch-sayer.itch.io/ultraball" class="btn btn-outline-dark btn-md">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!--Documentation Section-->
 
-            <div class="col-12 text-center mt-5">
+            <div class="col-12 text-center mt-5" id="data" data-aos="fade-up" data-aos-duration="800">
                 <h1 class="text-dark pt-4">Data Analyst Projects</h1>
                 <div class="border-top border-primary w-25 mx-auto my-3"></div>
                 <!-- Will replace this with something smarter soon.
@@ -208,10 +226,10 @@
         <!-- Modal Popup -->
 
         <!-- Start Two Column Section -->
-            <div class="container my-5">
+            <div class="container my-5" id="about" data-aos="fade-up" data-aos-duration="800">
                 <div class="row py-4">
 
-                    <div class="col-lg-4 mb-4 my-lg-auto">
+                    <div class="col-lg-4 mb-4 my-lg-auto" data-aos="fade-right" data-aos-duration="800">
                         <h1 class="text-dark font-weight-bold mb-3">Mitchell Sayer</h1>
                     <p class="mb-4">
                         A passionate individual searching and fighting for inclusivity in the gaming industry. With 3+
@@ -220,14 +238,14 @@
                     </p>
                     <!-- <a href="#" target="_blank" class="btn btn-outline-dark btn-lg">Read More</a> -->
                     </div>
-                <div class="col-md-8"><img src="img/mitch.jpg" alt="Mitchell Sayer" class="w-75"></div>
+                <div class="col-md-8" data-aos="fade-left" data-aos-duration="800"><img src="img/mitch.jpg" alt="Mitchell Sayer" class="w-75"></div>
             </div>
         <!-- End Two Column Section -->
 
 
 
         <!--Start Jumbotron-->
-        <div class="jumbotron py-5 mb-0">
+        <div class="jumbotron py-5 mb-0" id="contact" data-aos="fade-up" data-aos-duration="800">
             <div class="container">
                 <div class="row">
                 <div class="col-md-7 col-lg-8 col-xl-9 my-auto">
@@ -279,6 +297,11 @@
         <script src="js/all.min.js"></script>
 
         <!-- End Script Source Files -->
+
+        <!-- AOS Script -->
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <!-- Custom Interactive Script -->
+        <script src="js/interactive.js"></script>
     </body>
 </html>
 
