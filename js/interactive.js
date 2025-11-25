@@ -38,18 +38,27 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', () => {
         let current = '';
         
+        // Check sections in order and find the one closest to viewport
         Object.keys(sectionElements).forEach(section => {
             const element = sectionElements[section];
             if (element) {
                 const sectionTop = element.offsetTop;
                 const sectionHeight = element.clientHeight;
+                const scrollPos = window.pageYOffset + 200; // Add offset for better detection
                 
-                if (pageYOffset >= sectionTop - 100) {
+                // Check if scroll position is within this section
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
                     current = section;
                 }
             }
         });
+        
+        // If no section matched (at very top), default to home
+        if (!current) {
+            current = 'home';
+        }
 
+        // Update active dot
         navDots.forEach(dot => {
             dot.classList.remove('active');
             if (dot.getAttribute('data-section') === current) {
