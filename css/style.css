@@ -255,7 +255,13 @@ body
 footer
 {
     background-color: #383838;
-    padding: 1rem 2rem 3rem;
+    padding: 1rem 0 3rem;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 footer img
 {
@@ -294,6 +300,12 @@ footer .svg-inline--fa:hover
 {
     background-color: #222222;
     border-top: .1rem solid #4981b3;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 /*======== MEDIA QUERIES ========*/
