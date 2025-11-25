@@ -11,13 +11,13 @@ AOS.init({
 document.addEventListener('DOMContentLoaded', function() {
     const navDots = document.querySelectorAll('.nav-dot');
     
-    // Get all section elements
-    const sectionElements = {
-        home: document.getElementById('home'),
-        games: document.getElementById('games'),
-        data: document.getElementById('data'),
-        about: document.getElementById('about'),
-        contact: document.getElementById('contact')
+    // Map section names to their IDs
+    const sections = {
+        'home': 'home',
+        'games': 'games', 
+        'data': 'data',
+        'about': 'about',
+        'contact': 'contact'
     };
 
     // Smooth scroll on nav dot click
@@ -33,58 +33,63 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Update active dot on scroll with improved detection
-    function updateActiveDot() {
-        const scrollPos = window.pageYOffset + 300; // Increased offset for better detection
-        let current = 'home'; // Default to home
+    // Function to update active dot
+    function updateActiveSection() {
+        let currentSection = 'home'; // Default
+        const scrollPos = window.scrollY + window.innerHeight / 3; // Check 1/3 down viewport
         
-        // Check each section's position
-        const sectionData = [];
+        // Get all section elements and their positions
+        const sectionElements = [];
         
-        Object.keys(sectionElements).forEach(section => {
-            const element = sectionElements[section];
+        Object.values(sections).forEach(sectionId => {
+            const element = document.getElementById(sectionId);
             if (element) {
-                sectionData.push({
-                    name: section,
-                    top: element.offsetTop,
-                    bottom: element.offsetTop + element.offsetHeight
+                sectionElements.push({
+                    id: sectionId,
+                    element: element,
+                    top: element.getBoundingClientRect().top + window.scrollY,
+                    bottom: element.getBoundingClientRect().top + element.getBoundingClientRect().height + window.scrollY
                 });
             }
         });
         
         // Sort by top position
-        sectionData.sort((a, b) => a.top - b.top);
+        sectionElements.sort((a, b) => a.top - b.top);
         
-        // Find which section the scroll is in
-        for (let i = sectionData.length - 1; i >= 0; i--) {
-            if (scrollPos >= sectionData[i].top) {
-                current = sectionData[i].name;
+        // Find current section based on scroll position
+        for (let section of sectionElements) {
+            if (scrollPos >= section.top && scrollPos < section.bottom) {
+                currentSection = section.id;
                 break;
             }
         }
         
-        // Update all dots
+        // If past last section, mark last section as active
+        if (scrollPos >= sectionElements[sectionElements.length - 1].top) {
+            currentSection = sectionElements[sectionElements.length - 1].id;
+        }
+        
+        // Update dots
         navDots.forEach(dot => {
-            const section = dot.getAttribute('data-section');
-            if (section === current) {
+            dot.classList.remove('active');
+            if (dot.getAttribute('data-section') === currentSection) {
                 dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
             }
         });
     }
-
-    // Initial call
-    updateActiveDot();
     
-    // Update on scroll with throttling for performance
-    let scrollTimeout;
-    window.addEventListener('scroll', () => {
-        if (scrollTimeout) {
-            window.cancelAnimationFrame(scrollTimeout);
+    // Call on page load
+    updateActiveSection();
+    
+    // Update on scroll with debouncing
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateActiveSection);
+            ticking = true;
+            setTimeout(() => { ticking = false; }, 100);
         }
-        scrollTimeout = window.requestAnimationFrame(updateActiveDot);
-    });
+    }, false);
 });
 
 // Enhanced Carousel with Auto-Advance and Swipe Support
