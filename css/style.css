@@ -80,6 +80,30 @@ body
     z-index: 1;
 
 }
+
+.ms-logo
+{
+    background: linear-gradient(135deg, #4981b3, #68a0d2);
+    color: white !important;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 0.05rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0.25rem 0.75rem rgba(73, 129, 179, 0.3);
+}
+
+.ms-logo:hover
+{
+    background: linear-gradient(135deg, #68a0d2, #7aaec4);
+    box-shadow: 0 0.5rem 1.5rem rgba(73, 129, 179, 0.5);
+    transform: scale(1.05);
+}
 .nav-item
 {
     padding: .5rem;
