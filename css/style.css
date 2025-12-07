@@ -97,8 +97,8 @@ p {
 .ms-logo {
     background: linear-gradient(135deg, #6b5344 0%, #d4af37 100%);
     color: white !important;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 5.0rem;
+    height: 5.0rem;
     border-radius: 0.4rem;
     display: flex;
     align-items: center;
