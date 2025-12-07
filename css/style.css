@@ -304,7 +304,7 @@ section {
 }
 
 .project-card h4 {
-    margin: 1rem 2 0.5rem 2;
+    margin: 1rem 0 0.5rem 0;
     color: #3d3024;
     background: linear-gradient(135deg, #6b5344, #d4af37);
     -webkit-background-clip: text;
